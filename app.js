@@ -33,8 +33,30 @@ class Bd {
     localStorage.setItem(id, JSON.stringify(d));
     localStorage.setItem('id',id)
   }
+
+  recuperarTodosRegistros(){
+    //array despesa
+
+      let despesas = Array() // criado um array para indexar as dispesas
+
+    let id = localStorage.getItem('id')
+    // recuperar todas as despesas de local storage
+    for (let i = 1; i<=id; i++){
+      let despesa = JSON.parse(localStorage.getItem(i)) // JSON.parse transforma stream em objetos literais
+        
+        if (despesa === null ){
+          continue
+
+        }
+    
+        despesas.push(despesa) // inputando despesa dentro do array despesas
+
+    }
+    return despesas
+    }
+  }
   
-}
+
 
 let bd = new Bd()
 
@@ -81,4 +103,11 @@ function cadastrarDespesa() {
       document.getElementById('modal_botao').className = "btn-danger"
       $('#modalRegistraDespesa').modal('show')
     }
+}
+
+function carregaListaDespesas (){
+  let despesas = Array()
+  despesas = bd.recuperarTodosRegistros()
+  console.log(despesas)
+
 }
